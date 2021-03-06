@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       const data: DataArray = await fetch(
-        `http://localhost:3000/data?timeframe=${timeframe}`
+        `/data?timeframe=${timeframe}`
       ).then((res) => res.json());
 
       setData(
@@ -33,7 +33,7 @@ function App() {
       );
     };
     getData();
-    const interval = setInterval(getData, 5000);
+    const interval = setInterval(getData, 1000);
     return () => clearInterval(interval);
   }, [timeframe]);
   return (
@@ -49,6 +49,7 @@ function App() {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart width={600} height={300} data={data}>
             <Line
+              isAnimationActive={false}
               type="monotone"
               yAxisId="left"
               dataKey="temp"
@@ -56,6 +57,7 @@ function App() {
               dot={() => <span />}
             />
             <Line
+              isAnimationActive={false}
               type="monotone"
               yAxisId="right"
               dataKey="moisture"
